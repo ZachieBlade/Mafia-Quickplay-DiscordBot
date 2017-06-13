@@ -256,5 +256,21 @@ namespace DiscordBot.Game
                 cops = value;
             }
         }
+
+        public EventHandler<MessageEventArgs> NightkillHandler
+        {
+            get
+            {
+                return nightkillHandler;
+            }
+
+            set
+            {
+                nightkillHandler = value;
+            }
+        }
+
+        public int Doctors { get; internal set; }
+        public int Godfathers { get; internal set; }
     }
 }

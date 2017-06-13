@@ -101,16 +101,17 @@ namespace DiscordBot.Core {
             } while (g.TownAlive < g.TownPlayers);
             do
             {
-                if(g.MafiaPlayers > 1 && g.Godfathers == 0) {
-                    players[i].AssignRole(new Vanilla(Roles.RoleUtil.Allignment.Mafia, players[i].User.Name));
+
+                if(g.MafiaPlayers > 1 && g.Godfathers == 0)
+                {
+                    players[i].AssignRole(new Vanilla("Godfather", "You are the leader of the mafia, and will show up as town when scanned by an investigative role like Cop.\nYou also have the power to vote in the Mafia Chat every night on whom to kill.", $"Dear **{players[i].User.Name}**,\n\nYou are the most basic of roles in existence,\nYou are the **Godfather**.\n\nYou are the leader of the mafia, and will show up as town when scanned by an investigative role like Cop.\nYou also have the power to vote in the Mafia Chat every night on whom to kill.\n\nYou win with the **Mafia** whose goal is to outnumber all members of the Town"));
                     g.MafiaAlive++;
                     g.Godfathers++;
                     i++;
-                } else {
-                    players[i].AssignRole(new Vanilla(Roles.RoleUtil.Allignment.Mafia, players[i].User.Name));
-                    g.MafiaAlive++;
-                    i++;
                 }
+                players[i].AssignRole(new Vanilla(Roles.RoleUtil.Allignment.Mafia, players[i].User.Name));
+                g.MafiaAlive++;
+                i++;
             } while (g.MafiaAlive < g.MafiaPlayers);
             while (g.Cops > 0)
             {

@@ -73,14 +73,46 @@ namespace DiscordBot.Roles {
                 target = value;
             }
         }
+        public string Power
+        {
+            get
+            {
+                return power;
+            }
 
-        public MafiaRole(String title = "vanilla", String description = "The vanilla towny with no actual powers.", Allignment allignment = Allignment.Town, bool copCorrect = true, Wincon wincon = Wincon.DefeatMafia)
+            set
+            {
+                power = value;
+            }
+        }
+
+        public bool PowerRole
+        {
+            get
+            {
+                return powerRole;
+            }
+
+            set
+            {
+                powerRole = value;
+            }
+        }
+
+        public EventHandler<MessageEventArgs> PowerHandler(GamePlayerList g)
+        {
+            return new EventHandler<MessageEventArgs>((s, e) => powerHandler(s, e, g));
+            
+        }
+
+        public MafiaRole(String title = "vanilla", String description = "The vanilla towny with no actual powers.", Allignment allignment = Allignment.Town, Wincon wincon = Wincon.DefeatMafia, string rolePM = "")
         {
             this.allignment = allignment;
             this.copCorrect = copCorrect;
             this.wincon = wincon;
             this.Title = title;
             this.description = description;
+            this.rolePM = rolePM;
 
             canVote = true;
             canVoteNow = false;

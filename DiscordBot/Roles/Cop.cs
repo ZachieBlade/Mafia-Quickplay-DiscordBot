@@ -26,6 +26,14 @@ namespace DiscordBot.Roles
                     await chat.SendMessage("Cop check result: " + this.Target.Role.Allignment.ToString());
                 }
             }
+        }
+
+        public override async Task<bool> powerResult(User user, Player target)
+        {
+            if (target.Role.Title == "Godfather")
+                await user.SendMessage($"You checked {target.User.Name}, they are: {RoleUtil.Allignment.Town.ToString()}");
+            else
+                await user.SendMessage($"You checked {target.User.Name}, they are: {target.Role.Allignment}");
 
             this.Target = null;
             return true;

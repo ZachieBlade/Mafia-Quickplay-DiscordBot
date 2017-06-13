@@ -44,5 +44,8 @@ namespace DiscordBot.Roles {
                 this.rolePM = $"Dear **{username}**,\n\nYou are the boss of the mafia-aligned roles,\nYou are the **{Title}**.\n\n{description}\n\nYou win with the **Mafia** whose goal is to outnumber all members of the Town";
             }
         }
+        public Vanilla(string title, string description, string rolePM) :base(title, description, Allignment.Mafia, Wincon.OutnumberTown, rolePM)
+        {
+        }
     }
 }   
