@@ -81,28 +81,31 @@ namespace DiscordBot.Game
 
         private List<Player> players;
 
-        private IGuildChannel gameChat, mafiaChat;
+        private IGuildChannel gameChat, mafiaChat, signupChannel, graveyardChat;
 
-        public void setChats(IGuildChannel gameChat, IGuildChannel mafiaChat)
+        public void SetChats(IGuildChannel gameChat, IGuildChannel mafiaChat, IGuildChannel graveyard, IGuildChannel signupChannel)
         {
             this.gameChat = gameChat;
             this.mafiaChat = mafiaChat;
+            this.graveyardChat = graveyard;
+            this.signupChannel = signupChannel;
         }
 
         /// <summary>
         /// Sets or gets if the game is running or not
         /// </summary>
-        public bool gameRunning { get; set; }
+        public bool GameRunning { get; set; }
 
-        internal void Reset()
+        internal async void Reset()
         {
             this.Phase = Phases.EndPhase;
             this.token.Cancel();
             
-            this.gameRunning = false;
+            this.GameRunning = false;
             this.Objects.Clear();
-            this.GameChat.DeleteAsync();
-            this.MafiaChat.DeleteAsync();
+            await this.GameChat.DeleteAsync();
+            await this.MafiaChat.DeleteAsync();
+            await this.GraveyardChat.DeleteAsync();
             this.Cops = 0;
             this.Godfathers = 0;
             this.Doctors = 0;
@@ -115,7 +118,7 @@ namespace DiscordBot.Game
         public GamePlayerList()
         {
             players = new List<Player>();
-            gameRunning = false;
+            GameRunning = false;
             PhaseLengthInMin = 4;
         }
 
@@ -172,7 +175,7 @@ namespace DiscordBot.Game
 
         /// <summary>Checks if a player is in the game</summary>
         /// <param name ="Player">the instance of Player to check</param>
-        public bool inGame(Player player)
+        public bool InGame(Player player)
         {
             foreach (Player item in players)
             {
@@ -182,7 +185,7 @@ namespace DiscordBot.Game
             return false;
         }
 
-        public bool inGame(ulong id)
+        public bool InGame(ulong id)
         {
             foreach (Player item in players)
             {
@@ -193,7 +196,7 @@ namespace DiscordBot.Game
         }
         /// <summary>Checks if a player is in the game</summary>
         /// <param name ="Player">the instance of User to check</param>
-        public bool inGame(IGuildUser player)
+        public bool InGame(IGuildUser player)
         {
             foreach (Player item in players)
             {
@@ -217,7 +220,20 @@ namespace DiscordBot.Game
                 return mafiaChat;
             }
         }
-
+        public IGuildChannel SignupChannel
+        {
+            get
+            {
+                return signupChannel;
+            }
+        }
+        public IGuildChannel GraveyardChat
+        {
+            get
+            {
+                return graveyardChat;
+            }
+        }
         public Player MafiaKillTarget
         {
             get
